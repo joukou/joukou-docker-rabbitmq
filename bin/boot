@@ -1,0 +1,29 @@
+#!/bin/bash
+# Copyright 2014 Joukou Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# fail hard and fast even on pipelines
+set -eo pipefail
+
+[[ $DEBUG ]] && set -x
+
+export FQDN=$(hostname -f)
+export RABBITMQ_NODENAME="rabbit@${FQDN}"
+echo "$(date '+%Y-%m-%dT%T%z') $FQDN boot[$$] RABBITMQ_NODENAME=${RABBITMQ_NODENAME}"
+
+chown rabbitmq:rabbitmq /var/lib/rabbitmq /var/log/rabbitmq
+chmod 755 /var/lib/rabbitmq /var/log/rabbitmq
+
+echo "$(date '+%Y-%m-%dT%T%z') $FQDN boot[$$] starting rabbitmq-server..."
+exec /sbin/setuser rabbitmq /usr/sbin/rabbitmq-server

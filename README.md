@@ -1,6 +1,6 @@
 RabbitMQ Dockerfile for CoreOS 
 ==============================
-[![Build Status](https://circleci.com/gh/joukou/joukou-docker-rabbitmq/tree/develop.png?circle-token=43a9599ac7721345c0399b090046b2b995910960)](https://circleci.com/gh/joukou/joukou-docker-rabbitmq/tree/develop) [![Docker Repository on Quay.io](https://quay.io/repository/joukou/rabbitmq/status?token=f64c8e9b-3108-4ec6-8ca1-6faa4329f9ea "Docker Repository on Quay.io")](https://quay.io/repository/joukou/rabbitmq) [![Apache 2.0](http://img.shields.io/badge/License-apache%202.0-brightgreen.svg)](#license) [![IRC](http://img.shields.io/badge/IRC-%23joukou-blue.svg)](irc://irc.freenode.org:6667/#joukou)
+[![Build Status](https://circleci.com/gh/joukou/joukou-docker-rabbitmq/tree/develop.png?circle-token=43a9599ac7721345c0399b090046b2b995910960)](https://circleci.com/gh/joukou/joukou-docker-rabbitmq/tree/develop) [![Docker Repository on Quay.io](https://quay.io/repository/joukou/rabbitmq/status?token=f64c8e9b-3108-4ec6-8ca1-6faa4329f9ea "Docker Repository on Quay.io")](https://quay.io/repository/joukou/rabbitmq) [![Apache 2.0](http://img.shields.io/badge/License-apache%202.0-brightgreen.svg)](#license) [![IRC](http://img.shields.io/badge/IRC-%23joukou-blue.svg)](irc://irc.freenode.org:6667/#joukou) [![Analytics](https://ga-beacon.appspot.com/UA-41911221-2/joukou-docker-riak/readme)](https://github.com/igrigorik/ga-beacon)
 
 RabbitMQ 3.3.x. Includes RabbitMQ Management Plugin.
 

@@ -56,4 +56,4 @@ Copyright &copy; 2009-2014 Joukou Ltd.
 RabbitMQ Dockerfile for CoreOS is under the Apache 2.0 license. See the
 [LICENSE](LICENSE) file for details.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-41911221-2/joukou-docker-riak/readme)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-41911221-2/joukou-docker-rabbitmq/readme)](https://github.com/igrigorik/ga-beacon)

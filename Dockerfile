@@ -24,6 +24,12 @@ ADD rabbitmq-signing-key-public.asc /tmp/rabbitmq-signing-key-public.asc
 # Add the RabbitMQ apt repository to the apt data sources
 ADD etc/apt/sources.list.d/rabbitmq.list /etc/apt/sources.list.d/rabbitmq.list
 
+# Add RabbitMQ Supervisor configuration
+ADD etc/supervisord.d/rabbitmq.conf /etc/supervisord.d/
+
+# Add RabbitMQ scripts
+ADD usr/sbin/rabbitmq-start /usr/sbin/
+
 # Install RabbitMQ
 RUN apt-key add /tmp/rabbitmq-signing-key-public.asc && \
     apt-get update -qq && \
@@ -40,8 +46,3 @@ VOLUME [ "/var/lib/rabbitmq", "/var/log/rabbitmq" ]
 #   15672   RabbitMQ Management Plugin
 #   25672   Erlang Distributed Node Protocol
 EXPOSE 4369 5672 15672 25672
-
-CMD \
-  chown rabbitmq:rabbitmq /var/lib/rabbitmq /var/log/rabbitmq && \
-  chmod 755 /var/lib/rabbitmq /var/log/rabbitmq && \
-  exec su rabbitmq -c "/usr/sbin/rabbitmq-server"

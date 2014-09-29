@@ -15,6 +15,7 @@ FROM quay.io/joukou/base
 MAINTAINER Isaac Johnston <isaac.johnston@joukou.com>
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV RABBITMQ_VERSION 3.3.5
 ENV RABBITMQ_NODE_PORT 5672
 ENV RABBITMQ_DIST_PORT 25672
 
@@ -27,15 +28,22 @@ ADD etc/apt/sources.list.d/rabbitmq.list /etc/apt/sources.list.d/rabbitmq.list
 # Add RabbitMQ Supervisor configuration
 ADD etc/supervisord.d/rabbitmq.conf /etc/supervisord.d/
 
-# Add RabbitMQ scripts
+# Add RabbitMQ start script
 ADD usr/sbin/rabbitmq-start /usr/sbin/
 
 # Install RabbitMQ
 RUN apt-key add /tmp/rabbitmq-signing-key-public.asc && \
     apt-get update -qq && \
     apt-get install --no-install-recommends -y rabbitmq-server && \
-    rabbitmq-plugins enable rabbitmq_management && \
+	rabbitmq-plugins enable rabbitmq_management && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Custom RabbitMQ scripts to enable long names for distributed Erlang nodes; i.e. FQDNs
+ADD usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/rabbitmq-defaults usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/
+ADD usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/rabbitmq-env usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/
+ADD usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/rabbitmq-plugins usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/
+ADD usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/rabbitmq-server usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/
+ADD usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/rabbitmqctl usr/lib/rabbitmq/lib/rabbitmq_server-${RABBITMQ_VERSION}/sbin/
 
 # Make RabbitMQ's data and log directories volumes
 VOLUME [ "/var/lib/rabbitmq", "/var/log/rabbitmq" ]
@@ -46,3 +54,5 @@ VOLUME [ "/var/lib/rabbitmq", "/var/log/rabbitmq" ]
 #   15672   RabbitMQ Management Plugin
 #   25672   Erlang Distributed Node Protocol
 EXPOSE 4369 5672 15672 25672
+
+ENTRYPOINT [ "/usr/sbin/rabbitmq-start" ]

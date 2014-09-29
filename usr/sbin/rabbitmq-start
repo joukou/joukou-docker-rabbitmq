@@ -19,12 +19,8 @@ set -eo pipefail
 # set debug based on envvar
 [[ $DEBUG ]] && set -x
 
-# configure service
-export PORT=${PORT:-5672}
-export PROTO=${PROTO:-tcp}
-
 # configure RabbitMQ
-RABBITMQ_NODENAME=${RABBITMQ_NODENAME:-rabbit@${HOSTNAME}}
+RABBITMQ_NODENAME="rabbit@$(hostname -f)"
 
 chown rabbitmq:rabbitmq /var/lib/rabbitmq /var/log/rabbitmq
 chmod 755 /var/lib/rabbitmq /var/log/rabbitmq
